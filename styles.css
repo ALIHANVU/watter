@@ -1,0 +1,685 @@
+/* Основные переменные iOS */
+:root {
+    --ios-bg: #f2f2f7;
+    --ios-card-bg: rgba(255, 255, 255, 0.8);
+    --ios-card-bg-blur: rgba(255, 255, 255, 0.65);
+    --ios-text: #1c1c1e;
+    --ios-secondary: #6e6e73;
+    --ios-blue: #007aff;
+    --ios-border-radius: 16px;
+    --ios-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --ios-padding: 16px;
+    --ios-transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+    --ios-font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', sans-serif;
+}
+
+/* Сброс и базовые стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+    font-size: 16px;
+    height: 100%;
+}
+
+body {
+    font-family: var(--ios-font);
+    background-color: var(--ios-bg);
+    color: var(--ios-text);
+    line-height: 1.4;
+    font-weight: 400;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    overflow-x: hidden;
+    height: 100%;
+    background-image: linear-gradient(180deg, rgba(189, 222, 255, 0.15) 0%, rgba(255, 255, 255, 0) 100%);
+    background-attachment: fixed;
+}
+
+/* Основной контейнер */
+.ios-container {
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+/* Поисковая секция */
+.search-section {
+    margin-bottom: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--ios-bg);
+    padding-top: 12px;
+    padding-bottom: 12px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.search-container {
+    position: relative;
+    display: flex;
+    background-color: rgba(118, 118, 128, 0.12);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: var(--ios-transition);
+    height: 38px;
+}
+
+.search-container:focus-within {
+    box-shadow: 0 0 0 2px var(--ios-blue);
+}
+
+.search-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ios-secondary);
+    padding-left: 12px;
+}
+
+#citySearch {
+    flex: 1;
+    height: 38px;
+    border: none;
+    background: transparent;
+    padding: 0 12px;
+    font-size: 17px;
+    color: var(--ios-text);
+    font-family: var(--ios-font);
+    font-weight: 400;
+}
+
+#citySearch::placeholder {
+    color: var(--ios-secondary);
+}
+
+#citySearch:focus {
+    outline: none;
+}
+
+.search-button {
+    border: none;
+    background-color: var(--ios-blue);
+    color: white;
+    padding: 0 16px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    position: relative;
+    overflow: hidden;
+    font-family: var(--ios-font);
+    letter-spacing: -0.2px;
+}
+
+.search-button:active {
+    background-color: #0062cc;
+    transition: background-color 0.1s;
+}
+
+/* Эффект ripple */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.4);
+    transform: scale(0);
+    animation: ripple 0.6s linear;
+    pointer-events: none;
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Основная информация о погоде */
+.weather-main {
+    padding: 24px;
+    margin-bottom: 16px;
+    background-color: var(--ios-card-bg);
+    border-radius: var(--ios-border-radius);
+    box-shadow: var(--ios-shadow);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    animation: fadeIn 0.5s ease-in-out;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.city-name {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+
+.temperature {
+    font-size: 76px;
+    font-weight: 200;
+    line-height: 1;
+    margin-bottom: 8px;
+    letter-spacing: -1.5px;
+}
+
+.weather-condition {
+    font-size: 18px;
+    color: var(--ios-text);
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.temp-range {
+    font-size: 15px;
+    color: var(--ios-secondary);
+    font-weight: 400;
+}
+
+/* Карточки погоды */
+.weather-card {
+    background-color: var(--ios-card-bg-blur);
+    border-radius: var(--ios-border-radius);
+    margin-bottom: 16px;
+    padding: var(--ios-padding);
+    box-shadow: var(--ios-shadow);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    animation: slideUp 0.5s ease-out both;
+    animation-delay: calc(0.1s * var(--index));
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Почасовой прогноз */
+.hourly-forecast {
+    overflow: hidden;
+}
+
+.forecast-scroll {
+    display: flex;
+    overflow-x: auto;
+    padding: 8px 0 12px 0;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    margin: 0 -4px;
+}
+
+.forecast-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.forecast-hour {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 12px;
+    min-width: 56px;
+    animation: fadeSlideRight 0.5s both;
+    padding: 12px 8px;
+    border-radius: 14px;
+    transition: background-color 0.2s;
+}
+
+.forecast-hour:first-child {
+    margin-left: 4px;
+}
+
+.forecast-hour:last-child {
+    margin-right: 4px;
+}
+
+.forecast-hour:active {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+@keyframes fadeSlideRight {
+    from {
+        transform: translateX(-10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.forecast-time {
+    font-size: 15px;
+    color: var(--ios-secondary);
+    margin-bottom: 8px;
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+.forecast-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.forecast-temp {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+/* Детали погоды */
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+@media (min-width: 400px) {
+    .details-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 480px) {
+    .details-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.detail-item {
+    background-color: rgba(255, 255, 255, 0.35);
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.detail-item:active {
+    transform: scale(0.98);
+}
+
+.detail-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.detail-icon {
+    margin-right: 8px;
+    font-size: 16px;
+}
+
+.detail-title {
+    font-size: 11px;
+    color: var(--ios-secondary);
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.detail-value {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* Фермерские советы */
+/* Заголовок и панель фильтров */
+.tips-header,
+.forecast-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.tips-icon,
+.forecast-icon {
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.tips-title,
+.forecast-title {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+}
+
+/* Панель категорий для советов */
+.tips-categories {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 8px;
+}
+
+.tip-category {
+    background: transparent;
+    border: none;
+    color: var(--ios-text);
+    font-weight: 500;
+    cursor: pointer;
+    padding: 6px 10px;
+    transition: color 0.2s;
+}
+
+.tip-category.active,
+.tip-category:hover {
+    color: var(--ios-blue);
+    border-bottom: 2px solid var(--ios-blue);
+}
+
+/* Контейнер для советов */
+.tips-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Карточка совета */
+.tip-item {
+    background-color: rgba(255, 255, 255, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    transition: transform 0.2s;
+}
+
+.tip-item:hover {
+    transform: translateY(-2px);
+}
+
+/* Кнопка "Показать еще" */
+.show-more-btn {
+    background-color: var(--ios-blue);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 8px 16px;
+    margin: 10px auto;
+    cursor: pointer;
+    font-size: 14px;
+    display: block;
+    transition: background-color 0.2s;
+}
+
+.show-more-btn:hover {
+    background-color: #0069d9;
+}
+
+/* Недельный прогноз */
+.weekly-forecast-grid {
+    display: grid;
+    gap: 10px;
+}
+
+.weekly-day {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    background-color: rgba(255, 255, 255, 0.35);
+    border-radius: 14px;
+    padding: 16px;
+    align-items: center;
+    animation: fadeIn 0.5s both;
+    transition: transform 0.2s;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.weekly-day:active {
+    transform: scale(0.98);
+}
+
+.weekly-day-name {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+@media (max-width: 350px) {
+    .weekly-day-name {
+        font-size: 14px;
+    }
+}
+
+.weekly-day-icon {
+    font-size: 20px;
+    text-align: center;
+}
+
+.weekly-day-temp {
+    font-size: 17px;
+    font-weight: 600;
+    text-align: right;
+}
+
+/* Индикация загрузки */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--ios-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.loading-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.loading-spinner::before {
+    content: "";
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 3px solid rgba(0, 122, 255, 0.2);
+    border-top-color: var(--ios-blue);
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-text {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ios-text);
+    text-align: center;
+    max-width: 260px;
+}
+
+/* Ошибки */
+.error-notification {
+    position: fixed;
+    top: max(env(safe-area-inset-top, 20px), 40px);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ff3b30;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 15px;
+    z-index: 1001;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: slideDown 0.3s, fadeOut 0.3s 2.7s;
+    max-width: 90%;
+    text-align: center;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translate(-50%, -20px);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+    }
+}
+
+/* Состояния загрузки */
+.loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.loading::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0)
+    );
+    animation: shimmer 1.5s infinite;
+    background-size: 50% 100%;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(50%);
+    }
+}
+
+/* Скрытие элементов */
+.hidden {
+    display: none;
+}
+
+/* Дополнительные настройки для iOS */
+@supports (-webkit-touch-callout: none) {
+    body {
+        padding-top: max(env(safe-area-inset-top), 12px);
+        padding-bottom: max(env(safe-area-inset-bottom), 12px);
+    }
+    
+    .ios-container {
+        padding-left: max(env(safe-area-inset-left), 16px);
+        padding-right: max(env(safe-area-inset-right), 16px);
+    }
+    
+    .search-section {
+        padding-top: max(env(safe-area-inset-top), 12px);
+    }
+}
+
+/* Для больших экранов */
+@media (min-width: 768px) {
+    .ios-container {
+        padding: 24px;
+        max-width: 640px;
+    }
+    
+    .weather-main {
+        padding: 30px;
+    }
+    
+    .temperature {
+        font-size: 90px;
+    }
+    
+    .weather-condition {
+        font-size: 20px;
+    }
+    
+    .weather-card {
+        padding: 24px;
+    }
+}
+
+/* Поддержка темного режима */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --ios-bg: #000000;
+        --ios-card-bg: rgba(30, 30, 32, 0.8);
+        --ios-card-bg-blur: rgba(30, 30, 32, 0.65);
+        --ios-text: #ffffff;
+        --ios-secondary: #98989d;
+    }
+    
+    body {
+        background-image: linear-gradient(180deg, rgba(0, 64, 128, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+    }
+    
+    .search-container {
+        background-color: rgba(44, 44, 46, 0.8);
+    }
+    
+    .detail-item, .tip-item, .weekly-day {
+        background-color: rgba(44, 44, 46, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .forecast-hour:active {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .loading-overlay {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+    
+    .weather-main {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* Фокус клавиатуры */
+:focus-visible {
+    outline: 2px solid var(--ios-blue);
+    outline-offset: 2px;
+}
